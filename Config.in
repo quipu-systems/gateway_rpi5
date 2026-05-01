@@ -6,4 +6,6 @@
 source "$NERVES_DEFCONFIG_DIR/package/hailort/Config.in"
 source "$NERVES_DEFCONFIG_DIR/package/hailort-drivers/Config.in"
 source "$NERVES_DEFCONFIG_DIR/package/hailort-firmware/Config.in"
+source "$NERVES_DEFCONFIG_DIR/package/nanomq/Config.in"
+source "$NERVES_DEFCONFIG_DIR/package/openthread/Config.in"
 source "$NERVES_DEFCONFIG_DIR/package/spdlog_hailort/Config.in"

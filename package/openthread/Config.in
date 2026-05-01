@@ -1,0 +1,88 @@
+config BR2_PACKAGE_OPENTHREAD
+	bool "openthread"
+	depends on BR2_USE_MMU
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_INSTALL_LIBSTDCPP
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_5
+	select BR2_PACKAGE_AVAHI
+	select BR2_PACKAGE_AVAHI_DAEMON
+	select BR2_PACKAGE_DBUS
+	select BR2_PACKAGE_BOOST
+	select BR2_PACKAGE_JSONCPP
+	select BR2_PACKAGE_PROTOBUF
+	select BR2_PACKAGE_READLINE
+	select BR2_PACKAGE_NCURSES
+	help
+	  OpenThread is an open-source implementation of the Thread
+	  networking protocol. OpenThread Border Router (OTBR) connects
+	  a Thread network to other IP-based networks.
+
+	  https://openthread.io/
+
+if BR2_PACKAGE_OPENTHREAD
+
+config BR2_PACKAGE_OPENTHREAD_BORDER_AGENT
+	bool "border agent support"
+	default y
+	help
+	  Enable Thread Border Agent functionality.
+
+config BR2_PACKAGE_OPENTHREAD_BORDER_ROUTING
+	bool "border routing manager"
+	help
+	  Enable Border Routing Manager for routing between Thread
+	  and infrastructure networks.
+
+config BR2_PACKAGE_OPENTHREAD_BACKBONE_ROUTER
+	bool "backbone router"
+	select BR2_PACKAGE_LIBNETFILTER_QUEUE
+	help
+	  Enable Thread 1.2 Backbone Router functionality.
+
+config BR2_PACKAGE_OPENTHREAD_NAT64
+	bool "NAT64 support"
+	help
+	  Enable NAT64 translation for Thread devices to access
+	  IPv4 Internet.
+
+config BR2_PACKAGE_OPENTHREAD_DNS64
+	bool "DNS64 support"
+	select BR2_PACKAGE_DNSMASQ
+	select BR2_PACKAGE_BIND
+	help
+	  Enable DNS64 for synthesizing AAAA records from A records.
+
+config BR2_PACKAGE_OPENTHREAD_DHCPV6_PD
+	bool "DHCPv6 prefix delegation"
+	help
+	  Enable DHCPv6 Prefix Delegation support.
+
+config BR2_PACKAGE_OPENTHREAD_WEB_GUI
+	bool "web GUI"
+	depends on BR2_PACKAGE_NODEJS
+	help
+	  Enable the OpenThread Border Router web management interface.
+
+comment "web GUI needs nodejs"
+	depends on !BR2_PACKAGE_NODEJS
+
+config BR2_PACKAGE_OPENTHREAD_REST_SERVER
+	bool "REST API server"
+	default y
+	help
+	  Enable REST API server for programmatic access to OTBR.
+
+config BR2_PACKAGE_OPENTHREAD_INFRA_IF_NAME
+	string "infrastructure interface name"
+	default "eth0"
+	help
+	  Name of the network interface connected to the infrastructure
+	  network (usually your LAN/WAN interface).
+
+endif
+
+comment "openthread needs a toolchain w/ C++, threads, gcc >= 5, MMU"
+	depends on BR2_USE_MMU
+	depends on !BR2_TOOLCHAIN_HAS_THREADS || \
+		!BR2_INSTALL_LIBSTDCPP || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_5

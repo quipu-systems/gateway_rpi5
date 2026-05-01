@@ -11,6 +11,18 @@ follows:
 3. Patch version updates are made for Buildroot minor releases, Erlang/OTP
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
+4. Suffix `-gateway-XXX` is used to include modifications related to gateway
+   hardware needs.
+
+## v2.0.2-gateway-000
+
+Initial Raspberry Pi 5 Model B release for Gateway hardware.
+
+ * Package updates
+   - Added Gateway hardware support: nanomq and openthread
+ * Modified CI to release tags based on **gateway** label
+ * Updated README with step-by-step gateway instructions
+ * Added Gateway device name
 
 ## v2.0.2
 

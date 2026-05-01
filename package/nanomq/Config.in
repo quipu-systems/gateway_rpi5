@@ -1,0 +1,63 @@
+config BR2_PACKAGE_NANOMQ
+	bool "nanomq"
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_5
+	depends on BR2_TOOLCHAIN_HAS_THREADS
+	depends on BR2_USE_MMU
+	help
+	  NanoMQ is an all-around Edge Messaging Platform that includes
+	  a blazing-fast MQTT Broker for the IoT/IIoT.
+
+	  https://nanomq.io/
+
+if BR2_PACKAGE_NANOMQ
+
+config BR2_PACKAGE_NANOMQ_QUIC
+	bool "QUIC support"
+	help
+	  Enable QUIC protocol support for bridging. QUIC is a modern
+	  transport protocol that provides improved performance and
+	  security over TCP.
+
+config BR2_PACKAGE_NANOMQ_CLI
+	bool "nanomq cli client"
+	default y
+	help
+	  Build and install the nanomq command-line client tools.
+
+config BR2_PACKAGE_NANOMQ_SQLITE
+	bool "SQLite support"
+	help
+	  Enable SQLite database support in nanomq.
+
+config BR2_PACKAGE_NANOMQ_JWT
+	bool "JWT authentication"
+	help
+	  Enable JWT authentication support for HTTP server.
+
+config BR2_PACKAGE_NANOMQ_ZMQ_GATEWAY
+	bool "ZeroMQ gateway"
+	help
+	  Build ZeroMQ gateway tool for bridging between MQTT and ZeroMQ.
+
+config BR2_PACKAGE_NANOMQ_NFTP
+	bool "NFTP support"
+	help
+	  Enable Network File Transfer Protocol (NFTP) client.
+
+config BR2_PACKAGE_NANOMQ_DDS_PROXY
+	bool "DDS proxy"
+	help
+	  Build DDS proxy for bridging between MQTT and DDS
+	  (Data Distribution Service) - useful for robotics/industrial.
+
+config BR2_PACKAGE_NANOMQ_BENCH
+	bool "MQTT benchmark tool"
+	help
+	  Build MQTT benchmarking tool for performance testing.
+
+endif
+
+comment "nanomq needs a toolchain w/ threads, gcc >= 4.5"
+	depends on BR2_USE_MMU
+	depends on !BR2_TOOLCHAIN_HAS_THREADS || \
+		!BR2_TOOLCHAIN_GCC_AT_LEAST_4_5
